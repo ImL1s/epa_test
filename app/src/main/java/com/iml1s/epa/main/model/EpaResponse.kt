@@ -41,7 +41,7 @@ data class Extras(
 
 data class Field(
     val info: Info,
-    val type: Type,
+    val type: String,
     val id: String
 )
 
@@ -49,17 +49,6 @@ data class Info(
     val notes: String,
     val label: String
 )
-
-enum class Type(val value: String) {
-    Text("text");
-
-    companion object {
-        public fun fromValue(value: String): Type = when (value) {
-            "text" -> Text
-            else -> throw IllegalArgumentException()
-        }
-    }
-}
 
 data class Links(
     val start: String,

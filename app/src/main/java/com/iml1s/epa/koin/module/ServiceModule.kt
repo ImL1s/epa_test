@@ -5,8 +5,8 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 
 val serviceModule = module {
-    factory { provideFinancialService(get()) }
+    factory { provideEpaService(get()) }
 }
 
-fun provideFinancialService(retrofit: Retrofit): EpaService =
+fun provideEpaService(retrofit: Retrofit): EpaService =
     retrofit.create(EpaService::class.java)

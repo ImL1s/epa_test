@@ -25,6 +25,7 @@ class EpaFragment : Fragment() {
         .apply {
             binding = this
             lifecycleOwner = viewLifecycleOwner
+            viewModel = epaViewModel
         }.root
 
 

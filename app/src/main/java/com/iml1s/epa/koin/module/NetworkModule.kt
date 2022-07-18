@@ -1,6 +1,8 @@
 package com.iml1s.epa.koin.module
 
 import com.iml1s.epa.BuildConfig
+import com.iml1s.epa.main.model.Status
+import com.iml1s.epa.moshi.adapter.StatusAdapter
 import com.iml1s.epa.retrofit.FlowCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Rfc3339DateJsonAdapter
@@ -32,6 +34,7 @@ fun provideOkHttpClient(loggingInterceptor: Interceptor): OkHttpClient = OkHttpC
 fun provideMoshi(): Moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
     .add(Date::class.java, Rfc3339DateJsonAdapter().nullSafe())
+    .add(StatusAdapter())
     .build()
 
 fun provideFlowCallAdapter(): CallAdapter.Factory = FlowCallAdapterFactory.create()
