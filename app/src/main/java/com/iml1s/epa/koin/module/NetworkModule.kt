@@ -46,5 +46,5 @@ fun provideRetrofit(
     .client(okHttpClient)
     .addConverterFactory(MoshiConverterFactory.create(moshi))
     .addCallAdapterFactory(flowCallAdapter)
-//    .baseUrl(BuildConfig.API_BASE_URL) // TODO:
+//    .baseUrl(BuildConfig.API_BASE_URL) // TODO: add API base to bind config
     .build()
