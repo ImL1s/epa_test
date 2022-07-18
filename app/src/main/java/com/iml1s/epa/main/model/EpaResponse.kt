@@ -69,7 +69,7 @@ data class Record(
     val pollutant: String,
 
     @Json(name = "Status")
-    val status: Status,
+    val status: String,
 
     @Json(name = "SO2")
     val so2: String,
@@ -132,13 +132,17 @@ data class Record(
     val importDate: String
 )
 
-enum class Status(val value: String) {
-    GOOD("良好");
+sealed class Status(val value: String) {
+
+    object Good : Status("良好")
+    class Unknown(value: String) : Status(value)
 
     companion object {
         public fun fromValue(value: String): Status = when (value) {
-            "良好" -> GOOD
-            else -> throw IllegalArgumentException()
+            "良好" -> Good
+            else -> Unknown(value)
         }
     }
 }
+
+
