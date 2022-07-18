@@ -1,4 +1,4 @@
-package com.iml1s.epa
+package com.iml1s.epa.retrofit
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose

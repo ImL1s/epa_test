@@ -1,6 +1,6 @@
 package com.iml1s.epa.koin.module
 
-import com.iml1s.epa.FlowCallAdapterFactory
+import com.iml1s.epa.retrofit.FlowCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Rfc3339DateJsonAdapter
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory

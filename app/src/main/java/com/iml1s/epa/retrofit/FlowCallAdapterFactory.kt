@@ -1,4 +1,4 @@
-package com.iml1s.epa
+package com.iml1s.epa.retrofit
 
 import kotlinx.coroutines.flow.Flow
 import retrofit2.CallAdapter
