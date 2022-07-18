@@ -1,5 +1,7 @@
 package com.iml1s.epa.main.repository
 
-class EpaRepositoryImpl : EpaRepository {
+import com.iml1s.epa.main.datasource.EpaDatasource
+
+class EpaRepositoryImpl(val epaDatasource: EpaDatasource) : EpaRepository {
 
 }

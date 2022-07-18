@@ -13,23 +13,23 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class EpaFragment : Fragment() {
 
-    private var _binding: FragmentEpaBinding? = null
-
     private val epaViewModel by viewModel<EpaViewModel>()
     private val shareViewModel by sharedViewModel<ShareViewModel>()
+
+    private var binding: FragmentEpaBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ) = FragmentEpaBinding.inflate(inflater, container, false)
         .apply {
-            _binding = this
+            binding = this
             lifecycleOwner = viewLifecycleOwner
         }.root
 
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        binding = null
     }
 }

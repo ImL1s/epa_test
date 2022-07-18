@@ -1,5 +1,6 @@
 package com.iml1s.epa.koin.module
 
+import com.iml1s.epa.BuildConfig
 import com.iml1s.epa.retrofit.FlowCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Rfc3339DateJsonAdapter
@@ -24,12 +25,9 @@ val networkModule = module {
 fun provideHttpLoggingInterceptor(): Interceptor =
     HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
 
-fun provideOkHttpClient(
-    loggingInterceptor: Interceptor,
-): OkHttpClient =
-    OkHttpClient.Builder()
-        .addInterceptor(loggingInterceptor)
-        .build()
+fun provideOkHttpClient(loggingInterceptor: Interceptor): OkHttpClient = OkHttpClient.Builder()
+    .addInterceptor(loggingInterceptor)
+    .build()
 
 fun provideMoshi(): Moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
@@ -46,5 +44,5 @@ fun provideRetrofit(
     .client(okHttpClient)
     .addConverterFactory(MoshiConverterFactory.create(moshi))
     .addCallAdapterFactory(flowCallAdapter)
-//    .baseUrl(BuildConfig.API_BASE_URL) // TODO: add API base to bind config
+    .baseUrl(BuildConfig.API_BASE_URL)
     .build()
