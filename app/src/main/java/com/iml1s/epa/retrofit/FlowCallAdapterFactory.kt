@@ -9,14 +9,11 @@ import java.lang.reflect.Type
 class FlowCallAdapterFactory private constructor(private var isAsync: Boolean) :
     CallAdapter.Factory() {
     companion object {
-        /**
-         * 同步
-         */
+
+        // sync
         fun create(): FlowCallAdapterFactory = FlowCallAdapterFactory(false)
 
-        /**
-         * 异步
-         */
+        // async
         fun createAsync(): FlowCallAdapterFactory = FlowCallAdapterFactory(true)
     }
 
