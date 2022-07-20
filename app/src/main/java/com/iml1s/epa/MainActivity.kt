@@ -1,15 +1,13 @@
 package com.iml1s.epa
 
-import android.app.SearchManager
-import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.lifecycleScope
 import com.iml1s.epa.databinding.ActivityMainBinding
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,29 +18,27 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater).apply {
+            viewModel = initShareViewModel()
+        }
         setSupportActionBar(binding.toolBar)
+        supportActionBar?.title = ""
         setContentView(binding.root)
+
 //        val navController = findNavController(R.id.fragment_container_view)
     }
 
-    override fun onStart() {
-        super.onStart()
+    private fun initShareViewModel() = shareViewModel.apply {
+        isNavigationBackButtonShow.onEach {
+            supportActionBar?.apply {
+                setDisplayShowHomeEnabled(true)
+                setDisplayHomeAsUpEnabled(true)
+            }
+        }.launchIn(lifecycleScope)
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // data binding not support menu.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        this.menu = menu
-        // Associate searchable configuration with the SearchView
-        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        (menu.findItem(R.id.search).actionView as SearchView).apply {
-            setSearchableInfo(searchManager.getSearchableInfo(componentName))
-        }
-        return true
+    override fun onSupportNavigateUp(): Boolean {
+        return super.onSupportNavigateUp()
     }
 }
