@@ -12,4 +12,5 @@
     <string name="search">搜尋</string>
     <string name="search_title">ssss</string>
     <string name="air_pollution">空氣污染</string>
+    <string name="please_input_station_name">請輸入站名</string>
 </resources>
