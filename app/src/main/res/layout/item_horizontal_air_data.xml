@@ -56,7 +56,7 @@
                     android:id="@+id/text_quality"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{item.quality}"
+                    android:text='@{item.quality == "" ? @string/na : item.quality}'
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_weight="1"

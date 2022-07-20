@@ -15,13 +15,17 @@ class EpaViewModel(private val epaRepository: EpaRepository) : ViewModel() {
     private val _goodAirQualityList = MutableStateFlow<List<AirData>>(emptyList())
     val goodAirQualityList = _goodAirQualityList.asStateFlow()
 
+    private val _badAirQualityList = MutableStateFlow<List<AirData>>(emptyList())
+    val badAirQualityList = _badAirQualityList.asStateFlow()
+
     init {
         epaRepository.getEpaData()
             .map { it.records }
+            .map { it.map { rawData -> createAirData(rawData) } }
             .onEach {
                 Timber.tag(TIMBER_DEBUG_TAG).d(it.toString())
-                _goodAirQualityList.value = it.map { rawData -> createAirData(rawData) }
-                    .filter { item -> isGoodAirQuality(item.quality) }
+                _goodAirQualityList.value = it.filter { item -> isGoodAirQuality(item.quality) }
+                _badAirQualityList.value = it.filter { item -> !isGoodAirQuality(item.quality) }
             }
             .catch { Timber.tag(TIMBER_DEBUG_TAG).e(it) }
             .launchIn(viewModelScope)
