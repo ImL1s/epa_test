@@ -24,20 +24,24 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
     }
 
+    private fun initShareViewModel() = shareViewModel.apply {
+        isNavigationBackButtonShow
+            .onEach { this@MainActivity.showBackButton(it) }
+            .launchIn(lifecycleScope)
+    }
+
     override fun onSupportNavigateUp(): Boolean {
+        collapsedSearchView()
+        shareViewModel.showBackButton(false)
+        return super.onSupportNavigateUp()
+    }
+
+    private fun collapsedSearchView() {
         binding.searchView.apply {
             setQuery("", false)
             setIconifiedByDefault(true)
             onActionViewCollapsed()
         }
-        shareViewModel.showBackButton(false)
-        return super.onSupportNavigateUp()
-    }
-
-    private fun initShareViewModel() = shareViewModel.apply {
-        isNavigationBackButtonShow
-            .onEach { this@MainActivity.showBackButton(it) }
-            .launchIn(lifecycleScope)
     }
 
     private fun showBackButton(isShow: Boolean) {
