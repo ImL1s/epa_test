@@ -4,6 +4,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
+import timber.log.Timber
 
 
 @BindingAdapter("app:query")
@@ -28,14 +29,21 @@ fun setSearchViewQueryListener(view: SearchView, listener: InverseBindingListene
 }
 
 @InverseBindingAdapter(attribute = "app:query")
-fun getTextValue(view: SearchView): String {
+fun getSearchViewTextValue(view: SearchView): String {
     return view.query.toString()
 }
 
 @BindingAdapter("app:onCloseListener")
-fun setOnCloseListener(view: SearchView, onClose: () -> Unit) {
+fun setSearchViewOnCloseListener(view: SearchView, onClose: () -> Unit) {
     view.setOnCloseListener listener@{
         onClose()
         return@listener false
+    }
+}
+
+@BindingAdapter("app:onSearchClickListener")
+fun setOnSearchClickListener(view: SearchView, onSearchClick: () -> Unit) {
+    view.setOnSearchClickListener {
+        onSearchClick()
     }
 }

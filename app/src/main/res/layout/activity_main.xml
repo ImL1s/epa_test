@@ -26,13 +26,17 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.SearchView
+                app:onCloseListener="@{viewModel.onSearchClose}"
                 android:id="@+id/search_view"
-                query="@={viewModel.searchViewQueryText}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:imeOptions="actionDone"
                 android:layoutDirection="rtl"
-                app:iconifiedByDefault="true" />
+                app:defaultQueryHint="@string/air_pollution"
+                app:iconifiedByDefault="true"
+                app:onSearchClickListener="@{viewModel.onSearchClick}"
+                app:query="@={viewModel.searchViewQueryText}"
+                app:queryHint="@string/air_pollution" />
 
         </androidx.appcompat.widget.Toolbar>
 

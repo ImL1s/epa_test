@@ -11,4 +11,5 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="search">搜尋</string>
     <string name="search_title">ssss</string>
+    <string name="air_pollution">空氣污染</string>
 </resources>

@@ -1,7 +1,6 @@
 package com.iml1s.epa
 
 import android.os.Bundle
-import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.iml1s.epa.databinding.ActivityMainBinding
@@ -12,7 +11,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var menu: Menu
 
     private val shareViewModel by viewModel<ShareViewModel>()
 
@@ -22,23 +20,30 @@ class MainActivity : AppCompatActivity() {
             viewModel = initShareViewModel()
         }
         setSupportActionBar(binding.toolBar)
-        supportActionBar?.title = ""
+        supportActionBar?.title = getString(R.string.air_pollution)
         setContentView(binding.root)
+    }
 
-//        val navController = findNavController(R.id.fragment_container_view)
+    override fun onSupportNavigateUp(): Boolean {
+        binding.searchView.apply {
+            setQuery("", false)
+            setIconifiedByDefault(true)
+            onActionViewCollapsed()
+        }
+        shareViewModel.showBackButton(false)
+        return super.onSupportNavigateUp()
     }
 
     private fun initShareViewModel() = shareViewModel.apply {
-        isNavigationBackButtonShow.onEach {
-            supportActionBar?.apply {
-                setDisplayShowHomeEnabled(true)
-                setDisplayHomeAsUpEnabled(true)
-            }
-        }.launchIn(lifecycleScope)
+        isNavigationBackButtonShow
+            .onEach { this@MainActivity.showBackButton(it) }
+            .launchIn(lifecycleScope)
     }
 
-
-    override fun onSupportNavigateUp(): Boolean {
-        return super.onSupportNavigateUp()
+    private fun showBackButton(isShow: Boolean) {
+        supportActionBar?.apply {
+            setDisplayShowHomeEnabled(isShow)
+            setDisplayHomeAsUpEnabled(isShow)
+        }
     }
 }
