@@ -26,6 +26,7 @@ class EpaFragment : Fragment() {
             binding = this
             lifecycleOwner = viewLifecycleOwner
             viewModel = epaViewModel
+            shareViewModel = this@EpaFragment.shareViewModel
         }.root
 
 
