@@ -36,5 +36,5 @@ class ShareViewModel : ViewModel() {
 
     fun onSearchClose() = viewModelScope.launch {
         _onSearchClose.emit(Unit)
-    }.run { Unit }
+    }.run { }
 }
