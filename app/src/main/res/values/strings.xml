@@ -15,4 +15,5 @@
     <string name="please_input_station_name">請輸入站名</string>
     <string name="na">N/A</string>
     <string name="arrow"><![CDATA[>]]></string>
+    <string name="search_tip">輸入站名\n查詢該地區空污染資訊</string>
 </resources>
