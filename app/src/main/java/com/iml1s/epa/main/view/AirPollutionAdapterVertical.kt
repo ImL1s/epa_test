@@ -9,23 +9,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.iml1s.epa.BR
 import com.iml1s.epa.R
 import com.iml1s.epa.main.model.AirData
+import com.iml1s.epa.main.viewModel.EpaViewModel
 
-class AirPollutionAdapter(airDataList: List<AirData>) :
-    RecyclerView.Adapter<AirPollutionViewHolder>() {
+class AirPollutionAdapterVertical(airDataList: List<AirData>, private val epaViewModel: EpaViewModel) :
+    RecyclerView.Adapter<AirPollutionViewHolderVertical>() {
 
     private val airDataList = airDataList.toMutableList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         DataBindingUtil.inflate<ViewDataBinding>(
             LayoutInflater.from(parent.context),
-            R.layout.item_horizontal_air_data,
+            R.layout.item_vertical_air_data,
             parent,
             false
-        ).let { AirPollutionViewHolder(it) }
+        ).let { AirPollutionViewHolderVertical(it) }
 
 
-    override fun onBindViewHolder(holder: AirPollutionViewHolder, position: Int) {
-        holder.bind(airDataList[position])
+    override fun onBindViewHolder(holder: AirPollutionViewHolderVertical, position: Int) {
+        holder.bind(airDataList[position], epaViewModel)
     }
 
     override fun getItemCount(): Int = airDataList.count()
@@ -40,12 +41,13 @@ class AirPollutionAdapter(airDataList: List<AirData>) :
 }
 
 
-class AirPollutionViewHolder(private val viewDataBinding: ViewDataBinding) :
+class AirPollutionViewHolderVertical(private val viewDataBinding: ViewDataBinding) :
     RecyclerView.ViewHolder(viewDataBinding.root) {
 
-    fun bind(item: AirData) {
+    fun bind(item: AirData, epaViewModel: EpaViewModel) {
         viewDataBinding.apply {
             setVariable(BR.item, item)
+            setVariable(BR.epaViewModel, epaViewModel)
             executePendingBindings()
         }
     }

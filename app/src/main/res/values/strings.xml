@@ -14,4 +14,5 @@
     <string name="air_pollution">空氣污染</string>
     <string name="please_input_station_name">請輸入站名</string>
     <string name="na">N/A</string>
+    <string name="arrow"><![CDATA[>]]></string>
 </resources>

@@ -6,6 +6,8 @@ data class AirData(
     val city: String,
     val quality: String,
     val status: String
-)
+) {
+    val isStatusGood = Status.fromValue(status) == Status.Good
+}
 
 

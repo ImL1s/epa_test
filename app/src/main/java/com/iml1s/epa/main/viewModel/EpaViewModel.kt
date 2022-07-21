@@ -8,6 +8,7 @@ import com.iml1s.epa.main.model.AirData
 import com.iml1s.epa.main.model.Record
 import com.iml1s.epa.main.repository.EpaRepository
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class EpaViewModel(private val epaRepository: EpaRepository) : ViewModel() {
@@ -17,6 +18,9 @@ class EpaViewModel(private val epaRepository: EpaRepository) : ViewModel() {
 
     private val _badAirQualityList = MutableStateFlow<List<AirData>>(emptyList())
     val badAirQualityList = _badAirQualityList.asStateFlow()
+
+    private val _toastSource = MutableSharedFlow<AirData>()
+    val toastSource = _toastSource.asSharedFlow()
 
     init {
         epaRepository.getEpaData()
@@ -37,5 +41,11 @@ class EpaViewModel(private val epaRepository: EpaRepository) : ViewModel() {
 
     private fun isGoodAirQuality(qualityString: String): Boolean {
         return (qualityString.toIntOrNull() ?: return false) <= QUALITY_GOOD_THRESHOLD
+    }
+
+    fun onBadAirItemClick(airData: AirData) {
+        viewModelScope.launch {
+            _toastSource.emit(airData)
+        }
     }
 }
