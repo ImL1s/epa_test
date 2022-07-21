@@ -39,7 +39,7 @@
             android:layout_height="0dp"
             android:orientation="vertical"
             android:paddingHorizontal="8dp"
-            app:airPollutionVerticalList="@{viewModel.badAirQualityList}"
+            app:airPollutionVerticalList="@{shareViewModel.isNavigationBackButtonShow() ? viewModel.queryAirQualityList : viewModel.badAirQualityList}"
             app:epaViewModel="@{viewModel}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"

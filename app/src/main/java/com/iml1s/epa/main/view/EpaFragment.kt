@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
 import com.iml1s.epa.ShareViewModel
 import com.iml1s.epa.databinding.FragmentEpaBinding
 import com.iml1s.epa.main.viewModel.EpaViewModel
@@ -30,9 +31,8 @@ class EpaFragment : Fragment() {
             binding = this
             lifecycleOwner = viewLifecycleOwner
             viewModel = initEpaViewModel()
-            shareViewModel = this@EpaFragment.shareViewModel
+            shareViewModel = this@EpaFragment.shareViewModel.initSubscribe()
         }.root
-
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -43,5 +43,15 @@ class EpaFragment : Fragment() {
         toastSource.onEach {
             Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
         }.launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
+    private fun ShareViewModel.initSubscribe() = apply {
+        searchViewQueryText.onEach {
+            epaViewModel.userQuerySource.emit(it)
+        }.launchIn(epaViewModel.viewModelScope)
+
+        isNavigationBackButtonShow.onEach {
+            epaViewModel.isNavigationBackButtonShow.emit(it)
+        }.launchIn(epaViewModel.viewModelScope)
     }
 }
